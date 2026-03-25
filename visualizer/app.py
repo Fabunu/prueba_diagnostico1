@@ -8,7 +8,6 @@ import streamlite as ui
 
 #Configuración de conexión
 HOST = os.environ.get("MINER_HOST", "miner")
-
 PORT = 5000
 
 #llamada a la interfaz
@@ -50,8 +49,8 @@ def start_visualizer():
 
 
 # Botón para iniciar la escucha del socket
-if st.button("Iniciar Streaming") and not st.session_state.escuchando:
-    st.session_state.escuchando = True
+if st.button("Iniciar Streaming") and not st.session_state.streaming:
+    st.session_state.streaming = True
     threading.Thread(target=start_visualizer(),daemon=True).start()
 
 #Actualizar ui
