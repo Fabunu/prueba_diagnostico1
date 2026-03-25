@@ -1,7 +1,7 @@
 #python ligero
 FROM python:3.11-slim
 
-# ESTA ES LA LÍNEA MÁGICA PARA VER LOS LOGS DEL MINER
+# ver los logs del miner
 ENV PYTHONUNBUFFERED=1
 
 # se instala git en el contenedor(esto es para el pydriller)
