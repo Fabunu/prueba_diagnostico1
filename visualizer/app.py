@@ -50,16 +50,15 @@ def start_visualizer():
 
 
 # Botón para iniciar la escucha del socket
-if st.button("Iniciar Streaming") and not st.session_state.streaming:
-    st.session_state.streaming = True
-    # Ejecutamos TU función, pero en un hilo separado
-    threading.Thread(target=start_visualizer, daemon=True).start()
+if st.button("Iniciar Streaming") and not st.session_state.escuchando:
+    st.session_state.escuchando = True
+    threading.Thread(target=start_visualizer(),daemon=True).start()
 
-# Actualizamos la UI con los datos que se van llenando en el estado
+#Actualizar ui
 with placeholder.container():
     ui.renderizar_datos(st.session_state.word_counts)
 
-# Refrescamos la página cada segundo para que el gráfico se mueva
+#refrescar el grafico para movimiento
 if st.session_state.streaming:
     time.sleep(1)
-    st.rerun()
+    st.rerun
