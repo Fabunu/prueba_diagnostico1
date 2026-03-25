@@ -1,6 +1,9 @@
 #python ligero
 FROM python:3.11-slim
 
+# ESTA ES LA LÍNEA MÁGICA PARA VER LOS LOGS DEL MINER
+ENV PYTHONUNBUFFERED=1
+
 # se instala git en el contenedor(esto es para el pydriller)
 RUN apt-get update && apt-get install -y git && rm -rf /var/lib/apt/lists/*
 
@@ -9,6 +12,7 @@ WORKDIR /app
 
 #copia los requerimientos para aprovevhar el cache del docker
 COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
 #instala librerias
 RUN pip install --no-cache-dir -r requirements.txt
