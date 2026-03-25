@@ -1,6 +1,8 @@
 import streamlit as st
 import socket
 import os
+import threading
+import time
 from collections import Counter
 import streamlite as ui
 
@@ -15,6 +17,9 @@ ui.configurar_interfaz()
 #Estado de la aplicación para mantener el conteo
 if 'word_counts' not in st.session_state:
     st.session_state.word_counts = Counter()
+#Estado extra para saber si ya apretamos el botón
+if 'streaming' not in st.session_state:
+    st.session_state.streaming = False
 
 placeholder = st.empty()
 
@@ -40,13 +45,21 @@ def start_visualizer():
                     if word:
                         st.session_state.word_counts[word] += 1
 
-                # Actualizamos la UI cada vez que procesamos un bloque
-                with placeholder.container():
-                    ui.renderizar_datos(st.session_state.word_counts)
         except Exception as e:
             st.error(f"Error de conexión: {e}")
 
 
 # Botón para iniciar la escucha del socket
-if st.button("Iniciar Streaming"):
-    start_visualizer()
+if st.button("Iniciar Streaming") and not st.session_state.streaming:
+    st.session_state.streaming = True
+    # Ejecutamos TU función, pero en un hilo separado
+    threading.Thread(target=start_visualizer, daemon=True).start()
+
+# Actualizamos la UI con los datos que se van llenando en el estado
+with placeholder.container():
+    ui.renderizar_datos(st.session_state.word_counts)
+
+# Refrescamos la página cada segundo para que el gráfico se mueva
+if st.session_state.streaming:
+    time.sleep(1)
+    st.rerun()
