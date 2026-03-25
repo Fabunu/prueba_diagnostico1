@@ -24,10 +24,10 @@ def renderizar_datos(word_counts):
             # Gráfico de las palabras más usadas
             st.subheader("Gráfico de Frecuencias")
             st.bar_chart(df.set_index("Palabra"), width="stretch")
-            st.dataframe(df, use_container_width=True)
+            st.dataframe(df, width="stretch")
         with col2:
             # Gráfico de las palabras más usadas
             st.subheader("Gráfico de Frecuencias")
-            st.bar_chart(df.set_index("Palabra"), use_container_width=True)
+            st.bar_chart(df.set_index("Palabra"), width="stretch")
     else:
         st.info("Esperando datos del Miner...")
