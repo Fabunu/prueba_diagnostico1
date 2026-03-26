@@ -64,6 +64,7 @@ def start_mining():
                                         for token in tokenize_name(name):
                                             #envia la palabra seguido de un salto de linea
                                             conn.sendall(f"{token}\n".encode("utf-8"))
+                                            time.sleep(0.01)
                             except ValueError:
                                 #si no resuelve el sha lo ignora
                                 pass

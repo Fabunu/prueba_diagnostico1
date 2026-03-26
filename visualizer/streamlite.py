@@ -25,4 +25,6 @@ def renderizar_datos(word_counts):
             st.subheader("Gráfico de Frecuencias")
             st.bar_chart(df.set_index("Palabra"), width="stretch")
     else:
-        st.info("Esperando datos del Miner...")
+        st.info("Para iniciar oprima 'iniciar streaming' solo una vez, Espere 30 seg...")
+
+
