@@ -19,10 +19,12 @@ def renderizar_datos(word_counts):
         with col1:
             #Lista de palabras más usadas
             st.subheader("Lista de Posiciones")
-            st.dataframe(df, use_container_width=True)
+            st.dataframe(df, width= "stretch")
         with col2:
             # Gráfico de las palabras más usadas
             st.subheader("Gráfico de Frecuencias")
-            st.bar_chart(df.set_index("Palabra"), use_container_width=True)
+            st.bar_chart(df.set_index("Palabra"), width="stretch")
     else:
-        st.info("Esperando datos del Miner...")
+        st.info("Para iniciar oprima 'iniciar streaming' solo una vez, Espere 30 seg...")
+
+

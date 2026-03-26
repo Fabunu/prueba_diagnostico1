@@ -54,6 +54,8 @@ def start_mining():
                 repos = get_top_repositorios(lang, limit=5)
                 for url in repos:
                     print(f"procesando repositorio: {url}")
+                    contador_commits = 0
+
                     for commit in Repository(url, order="reverse").traverse_commits():
                         for m_file in commit.modified_files:
                             try:
@@ -62,6 +64,7 @@ def start_mining():
                                         for token in tokenize_name(name):
                                             #envia la palabra seguido de un salto de linea
                                             conn.sendall(f"{token}\n".encode("utf-8"))
+                                            time.sleep(0.01)
                             except ValueError:
                                 #si no resuelve el sha lo ignora
                                 pass
@@ -69,6 +72,12 @@ def start_mining():
                                 #cualquie otro error raro dl pydriller
                                 pass
                         print(f"commit {commit.hash[:7]} procesado")
+
+                        # se detiene el analisis despues de 10 commits
+                        contador_commits += 1
+                        if contador_commits >= 10:
+                            print(f"limite de commits alcanzado para {url}, pasando al siguiente repositorio")
+                            break
 
 if __name__ == "__main__":
     start_mining()

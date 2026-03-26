@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  miner:
+    build: ./miner
+    ports:
+      - "5000:5000"
+
+  visualizer:
+    build: ./visualizer
+    ports:
+      - "8501:8501"
+    environment:
+      - MINER_HOST=miner
+    depends_on:
+      - miner
